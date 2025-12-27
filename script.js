@@ -1,5 +1,19 @@
 "use strict";
-const cards = ["A", "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K"];
+const cards = [
+  "A",
+  "2",
+  "3",
+  "4",
+  "5",
+  "6",
+  "7",
+  "8",
+  "9",
+  "10",
+  "J",
+  "Q",
+  "K",
+];
 
 function shuffle(arr) {
   let rand, temp;
@@ -18,22 +32,26 @@ function play(cards) {
 
   while (cards.length > 0) {
     alert("Your turn!");
-    let n = prompt("Choose a card")
-    if (isNaN(n)){
-        return;
+    let n = prompt("Choose a card");
+    if (isNaN(n)) {
+      return;
     }
-    alert((cards[n]));
+    alert(cards[n]);
     if (cards[n] === "Q") {
       alert("Your win!");
       return;
     }
+    cards.splice(n, 1);
+    console.log(cards);
     alert("My turn!");
     let rand = Math.floor(Math.random() * cards.length);
-    alert((cards[rand]))
+    alert(rand + " " + cards[rand]);
     if (cards[rand] === "Q") {
       alert("I win!");
       return;
     }
+    cards.splice(rand, 1);
+    console.log(cards);
   }
 }
 
