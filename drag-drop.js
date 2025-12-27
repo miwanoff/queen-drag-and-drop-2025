@@ -18,10 +18,10 @@ const cards = [
 let playedCards = [];
 
 const infoElement = document.getElementById("info");
-const reloadElement = document.getElementById("reload");
+const reloadButton = document.getElementById("reload");
 const cardsElement = document.getElementById("cards");
-const realCardsElement = document.getElementById("real_cards");
-const playedCardsElement = document.getElementById("played_cards");
+const realCardsField = document.getElementById("real_cards");
+const playedCardsField = document.getElementById("played_cards");
 
 infoElement.innerHTML = "Take a card!";
 
@@ -37,3 +37,14 @@ function shuffle(arr) {
 }
 
 console.log(shuffle(cards));
+
+infoElement.innerHTML = cards;
+
+function generateCards(cards, cardsF) {
+  for (let i = 0; i < cards.length; i++) {
+    cardsF.innerHTML += `<div id="rc${i}" class="card"><span>${cards[i]}</span></div>`;
+  }
+}
+
+// generateCards(cards, realCardsField);
+// generateCards(playedCards, playedCardsField);
