@@ -46,5 +46,5 @@ function generateCards(cards, cardsF) {
   }
 }
 
-// generateCards(cards, realCardsField);
+generateCards(cards, realCardsField);
 // generateCards(playedCards, playedCardsField);
