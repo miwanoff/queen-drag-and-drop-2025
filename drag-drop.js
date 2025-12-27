@@ -40,11 +40,33 @@ console.log(shuffle(cards));
 
 infoElement.innerHTML = cards;
 
+function allowDrop(event) {
+  event.preventDefault();
+}
+
+function drag(event) {
+  event.dataTransfer.setData("text", event.target.id);
+}
+
+function drop(event) {
+  event.preventDefault();
+  const data = event.dataTransfer.getData("text");
+  event.target.appendChild(document.getElementById(data));
+}
+
 function generateCards(cards, cardsF) {
   for (let i = 0; i < cards.length; i++) {
-    cardsF.innerHTML += `<div id="rc${i}" class="card"><span>${cards[i]}</span></div>`;
+    cardsF.innerHTML += `<div id="rc${i}" class="card" draggable="true" ondragstart="drag(event)"><span>${cards[i]}</span></div>`;
   }
 }
 
-generateCards(cards, realCardsField);
-// generateCards(playedCards, playedCardsField);
+function newPlay() {
+    alert("!!!");
+  location.reload;
+  return false;
+}
+window.onload = () => {
+  generateCards(cards, realCardsField);
+  // generateCards(playedCards, playedCardsField);
+//   reloadButton.addEventListener("click", newPlay);
+};
