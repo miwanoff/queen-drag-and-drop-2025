@@ -23,6 +23,8 @@ const cardsElement = document.getElementById("cards");
 const realCardsField = document.getElementById("real_cards");
 const playedCardsField = document.getElementById("played_cards");
 
+let isGame = true;
+
 infoElement.innerHTML = "Take a card!";
 
 function shuffle(arr) {
@@ -55,9 +57,9 @@ function drop(event) {
   play(data);
 }
 
-function generateCards(cards, cardsF) {
+function generateCards(cards, cardsF, rp = "r") {
   for (let i = 0; i < cards.length; i++) {
-    cardsF.innerHTML += `<div id="rc${i}" class="card" draggable="true" ondragstart="drag(event)"><span>${cards[i]}</span></div>`;
+    cardsF.innerHTML += `<div id="${rp}c${i}" class="card" draggable="true" ondragstart="drag(event)"><span>${cards[i]}</span></div>`;
   }
 }
 
@@ -79,34 +81,49 @@ function removeCard(cardIndex) {
   cards.splice(cardIndex, 1);
   infoElement.innerHTML = cards;
   realCardsField.innerHTML = "";
-  generateCards(cards, realCardsField);
+  generateCards(cards, realCardsField, "r");
   playedCardsField.innerHTML = "";
-  generateCards(playedCards, playedCardsField) 
+  generateCards(playedCards, playedCardsField, "p");
   addEventCardList();
 }
 
-function computeMove() {
+function computerMove() {
+  isGame = false;
   let rand = Math.floor(Math.random() * cards.length);
   console.log(rand);
-  // let computerCardId = `rc${rand}`;
+  let computerCardId = `rc${rand}`;
   // console.log(computerCardId);
+  let computerCard = document.getElementById(computerCardId);
+  computerCard.style.top = "400px";
   removeCard(rand);
+  isGame = true;
 }
 
-// computeMove();
+// computerMove();
 
 function myMove(cardId) {
+  isGame = false;
   // rc10
   let cardIndex = Number(cardId.slice(2));
   removeCard(cardIndex);
+  // setTimeout(removeCard.bind(null, cardIndex), 200);
+  isGame = true;
 }
 
 function play(cardId) {
-  myMove(cardId);
+  if (!isGame) return;
+  try {
+    myMove(cardId);
+    if (cards.length > 0) {
+      setTimeout(computerMove, 300);
+    }
+  } catch (ex) {
+    infoElement.innerHTML = ex.message;
+  }
 }
 
 window.onload = () => {
-  generateCards(cards, realCardsField);
+  generateCards(cards, realCardsField, "r");
   addEventCardList();
   // generateCards(playedCards, playedCardsField);
   reloadButton.addEventListener("click", newPlay);
