@@ -52,6 +52,7 @@ function drop(event) {
   event.preventDefault();
   const data = event.dataTransfer.getData("text");
   event.target.appendChild(document.getElementById(data));
+  play(data);
 }
 
 function generateCards(cards, cardsF) {
@@ -64,8 +65,45 @@ function newPlay() {
   location.reload();
   return false;
 }
+
+function addEventCardList() {
+  let cardElements = document.getElementsByClassName("class");
+  for (let i = 0; i < cardElements.length; i++) {
+    cardElements[i].addEventListener("click", play);
+  }
+}
+
+function removeCard(cardIndex) {
+  cards.splice(cardIndex, 1);
+  infoElement.innerHTML = cards;
+  realCardsField.innerHTML = "";
+  generateCards(cards, realCardsField);
+  addEventCardList();
+}
+
+function computeMove() {
+  let rand = Math.floor(Math.random() * cards.length);
+  console.log(rand);
+  // let computerCardId = `rc${rand}`;
+  // console.log(computerCardId);
+  removeCard(rand);
+}
+
+// computeMove();
+
+function myMove(cardId) {
+  // rc10
+  let cardIndex = Number(cardId.slice(2));
+  removeCard(cardIndex);
+}
+
+function play(cardId) {
+  myMove(cardId);
+}
+
 window.onload = () => {
   generateCards(cards, realCardsField);
+  addEventCardList();
   // generateCards(playedCards, playedCardsField);
   reloadButton.addEventListener("click", newPlay);
 };
