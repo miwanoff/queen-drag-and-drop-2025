@@ -61,12 +61,11 @@ function generateCards(cards, cardsF) {
 }
 
 function newPlay() {
-    alert("!!!");
-  location.reload;
+  location.reload();
   return false;
 }
 window.onload = () => {
   generateCards(cards, realCardsField);
   // generateCards(playedCards, playedCardsField);
-//   reloadButton.addEventListener("click", newPlay);
+  reloadButton.addEventListener("click", newPlay);
 };
