@@ -74,10 +74,14 @@ function addEventCardList() {
 }
 
 function removeCard(cardIndex) {
+  playedCards.push(cards[cardIndex]);
+  console.log(playedCards);
   cards.splice(cardIndex, 1);
   infoElement.innerHTML = cards;
   realCardsField.innerHTML = "";
   generateCards(cards, realCardsField);
+  playedCardsField.innerHTML = "";
+  generateCards(playedCards, playedCardsField) 
   addEventCardList();
 }
 
