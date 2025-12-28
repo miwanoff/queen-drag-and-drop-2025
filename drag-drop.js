@@ -95,7 +95,8 @@ function computerMove() {
   // console.log(computerCardId);
   let computerCard = document.getElementById(computerCardId);
   computerCard.style.top = "400px";
-  removeCard(rand);
+  // computerCard.style.left = 80 * playedCards.length + "px";
+  setTimeout(removeCard.bind(this, rand), 200);
   isGame = true;
 }
 
@@ -120,6 +121,11 @@ function play(cardId) {
   } catch (ex) {
     infoElement.innerHTML = ex.message;
   }
+}
+
+function checkWin(gamer, card) {
+  if (card == "Q") return true;
+  else return false;
 }
 
 window.onload = () => {
